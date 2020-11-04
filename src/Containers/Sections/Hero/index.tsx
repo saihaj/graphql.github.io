@@ -1,9 +1,8 @@
 import { Link } from 'gatsby';
-import React from 'react';
 import HeaderLinks from '../../../components/HeaderLinks';
 import Prism from '../../../components/Prism';
 
-  
+
 const Hero = () => {
     return (
       <div className="hero">

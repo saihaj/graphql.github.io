@@ -1,4 +1,3 @@
-import React from 'react';
 import Prism from '../../../components/Prism';
 
 const SingleRequest = () => {

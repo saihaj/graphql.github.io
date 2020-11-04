@@ -5,7 +5,7 @@
  * https://github.com/chjj/marked
  */
 
-import React from "react"
+import { createElement } from "react"
 import users from "../../pages/users"
 import Prism from "../Prism/index"
 import Header from "./Header"
@@ -570,7 +570,7 @@ InlineLexer.prototype.output = function (src) {
         href = text
       }
 
-      out.push(React.createElement("a", { href: this.sanitizeUrl(href), key:href }, text))
+      out.push(createElement("a", { href: this.sanitizeUrl(href), key:href }, text))
       continue
     }
 
@@ -579,7 +579,7 @@ InlineLexer.prototype.output = function (src) {
       src = src.substring(cap[0].length)
       text = cap[1]
       href = text
-      out.push(React.createElement("a", { href: this.sanitizeUrl(href), key:href }, text))
+      out.push(createElement("a", { href: this.sanitizeUrl(href), key:href }, text))
       continue
     }
 
@@ -624,7 +624,7 @@ InlineLexer.prototype.output = function (src) {
     if ((cap = this.rules.strong.exec(src))) {
       src = src.substring(cap[0].length)
       out.push(
-        React.createElement(
+        createElement(
           "strong",
           { key: src.length },
           this.output(cap[2] || cap[1])
@@ -637,7 +637,7 @@ InlineLexer.prototype.output = function (src) {
     if ((cap = this.rules.em.exec(src))) {
       src = src.substring(cap[0].length)
       out.push(
-        React.createElement(
+        createElement(
           "em",
           { key: src.length },
           this.output(cap[2] || cap[1])
@@ -649,14 +649,14 @@ InlineLexer.prototype.output = function (src) {
     // code
     if ((cap = this.rules.code.exec(src))) {
       src = src.substring(cap[0].length)
-      out.push(React.createElement("code", { key: src.length }, cap[2]))
+      out.push(createElement("code", { key: src.length }, cap[2]))
       continue
     }
 
     // br
     if ((cap = this.rules.br.exec(src))) {
       src = src.substring(cap[0].length)
-      out.push(React.createElement("br", { key: src.length }, null))
+      out.push(createElement("br", { key: src.length }, null))
       continue
     }
 
@@ -664,7 +664,7 @@ InlineLexer.prototype.output = function (src) {
     if ((cap = this.rules.del.exec(src))) {
       src = src.substring(cap[0].length)
       out.push(
-        React.createElement("del", { key: src.length }, this.output(cap[1]))
+        createElement("del", { key: src.length }, this.output(cap[1]))
       )
       continue
     }
@@ -713,7 +713,7 @@ InlineLexer.prototype.outputLink = function (cap, link) {
     var shouldOpenInNewWindow =
       link.href.charAt(0) !== "/" && link.href.charAt(0) !== "#"
 
-    return React.createElement(
+    return createElement(
       "a",
       {
         href: this.sanitizeUrl(link.href),
@@ -723,9 +723,9 @@ InlineLexer.prototype.outputLink = function (cap, link) {
         key: link.href,
       },
       this.output(cap[1])
-    )
+    );
   } else {
-    return React.createElement(
+    return createElement(
       "img",
       {
         src: this.sanitizeUrl(link.href),
@@ -734,7 +734,7 @@ InlineLexer.prototype.outputLink = function (cap, link) {
         key: link.href,
       },
       null
-    )
+    );
   }
 }
 
@@ -827,7 +827,7 @@ Parser.prototype.tok = function () {
       return []
     }
     case "hr": {
-      return React.createElement("hr", { key: this.tokens.length }, null)
+      return createElement("hr", { key: this.tokens.length }, null);
     }
     case "heading": {
       return (
@@ -896,7 +896,7 @@ Parser.prototype.tok = function () {
       for (i = 0; i < this.token.header.length; i++) {
         heading = this.inline.output(this.token.header[i])
         row.push(
-          React.createElement(
+          createElement(
             "th",
             this.token.align[i]
               ? { style: { textAlign: this.token.align[i] },key:i }
@@ -906,7 +906,7 @@ Parser.prototype.tok = function () {
         )
       }
       table.push(
-        React.createElement("thead", { key: this.tokens.length }, React.createElement("tr", null, row))
+        createElement("thead", { key: this.tokens.length }, createElement("tr", null, row))
       )
 
       // body
@@ -915,7 +915,7 @@ Parser.prototype.tok = function () {
         cells = this.token.cells[i]
         for (j = 0; j < cells.length; j++) {
           row.push(
-            React.createElement(
+            createElement(
               "td",
               this.token.align[j]
                 ? { style: { textAlign: this.token.align[j],key:i } }
@@ -924,11 +924,11 @@ Parser.prototype.tok = function () {
             )
           )
         }
-        body.push(React.createElement("tr", {key:i}, row))
+        body.push(createElement("tr", {key:i}, row))
       }
-      table.push(React.createElement("thead", {key:i}, body))
+      table.push(createElement("thead", {key:i}, body))
 
-      return React.createElement("table", null, table)
+      return createElement("table", null, table);
     }
     case "blockquote_start": {
       var body = []
@@ -937,11 +937,11 @@ Parser.prototype.tok = function () {
         body.push(this.tok())
       }
 
-      return React.createElement(
+      return createElement(
         "blockquote",
         { key: this.tokens.length },
         body
-      )
+      );
     }
     case "list_start": {
       var type = this.token.ordered ? "ol" : "ul",
@@ -951,7 +951,7 @@ Parser.prototype.tok = function () {
         body.push(this.tok())
       }
 
-      return React.createElement(type, { key: this.tokens.length }, body)
+      return createElement(type, { key: this.tokens.length }, body)
     }
     case "list_item_start": {
       var body = []
@@ -960,7 +960,7 @@ Parser.prototype.tok = function () {
         body.push(this.token.type === "text" ? this.parseText() : this.tok())
       }
 
-      return React.createElement("li", { key: this.tokens.length }, body)
+      return createElement("li", { key: this.tokens.length }, body);
     }
     case "loose_item_start": {
       var body = []
@@ -969,10 +969,10 @@ Parser.prototype.tok = function () {
         body.push(this.tok())
       }
 
-      return React.createElement("li", { key: this.tokens.length }, body)
+      return createElement("li", { key: this.tokens.length }, body)
     }
     case "html": {
-      return React.createElement("div", {
+      return createElement("div", {
         dangerouslySetInnerHTML: {
           __html: this.token.text,
         },
@@ -985,7 +985,7 @@ Parser.prototype.tok = function () {
             null,
             this.inline.output(this.token.text)
           )
-        : React.createElement(
+        : createElement(
             "p",
             { key: this.tokens.length },
             this.inline.output(this.token.text)
@@ -994,7 +994,7 @@ Parser.prototype.tok = function () {
     case "text": {
       return this.options.paragraphFn
         ? this.options.paragraphFn.call(null, this.parseText())
-        : React.createElement(
+        : createElement(
             "p",
             { key: this.tokens.length },
             this.parseText()
@@ -1123,8 +1123,8 @@ function marked(src, opt, callback) {
     e.message += "\nPlease report this to https://github.com/chjj/marked."
     if ((opt || marked.defaults).silent) {
       return [
-        React.createElement("p", null, "An error occurred:"),
-        React.createElement("pre", null, e.message),
+        createElement("p", null, "An error occurred:"),
+        createElement("pre", null, e.message),
       ]
     }
     throw e

@@ -1,4 +1,4 @@
-import React, {useEffect} from "react"
+import { useEffect } from "react"
 
 // Added to the global runtime by the script tag further down the file.
 declare const docsearch: any | undefined

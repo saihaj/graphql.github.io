@@ -1,4 +1,4 @@
-import React, { useEffect } from "react"
+import { useEffect } from "react"
 import Prism from "../../../components/Prism"
 
 const Index = (): JSX.Element => {

@@ -1,4 +1,3 @@
-import React from "react"
 import { Link } from "gatsby"
 import DocsSidebar from "../DocsSidebar"
 import Marked from '../Marked'

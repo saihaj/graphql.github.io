@@ -1,4 +1,3 @@
-import React from "react"
 import Layout from "../components/Layout"
 import BlogPost from "../components/BlogPost"
 import BlogSidebar from "../components/BlogSidebar"

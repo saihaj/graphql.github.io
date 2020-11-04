@@ -1,4 +1,3 @@
-import React from "react"
 import { Link } from "gatsby"
 import { toSlug } from "../../utils/slug"
 import { AnchorLink } from "gatsby-plugin-anchor-links"

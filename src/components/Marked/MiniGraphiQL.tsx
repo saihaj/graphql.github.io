@@ -7,12 +7,12 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import React from "react"
+import { Component } from "react"
 import marked from "marked"
 
 import { graphql, formatError, parse, typeFromAST } from "graphql"
 
-class MiniGraphiQL extends React.Component {
+class MiniGraphiQL extends Component {
   // Lifecycle
 
   constructor(props) {
@@ -120,7 +120,7 @@ class MiniGraphiQL extends React.Component {
  *   - onEdit: A function called when the editor changes, given the edited text.
  *
  */
-class QueryEditor extends React.Component {
+class QueryEditor extends Component {
   constructor(props) {
     super()
 
@@ -270,7 +270,7 @@ class QueryEditor extends React.Component {
  *   - value: The text of the editor.
  *
  */
-class ResultViewer extends React.Component {
+class ResultViewer extends Component {
   componentDidMount() {
     var CodeMirror = require("codemirror")
     require("codemirror-graphql/results/mode")
@@ -321,7 +321,7 @@ class ResultViewer extends React.Component {
  *   - onEdit: A function called when the editor changes, given the edited text.
  *
  */
-class VariableEditor extends React.Component {
+class VariableEditor extends Component {
   constructor(props) {
     super()
 

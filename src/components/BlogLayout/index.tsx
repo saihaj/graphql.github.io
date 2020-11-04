@@ -1,4 +1,3 @@
-import React from "react"
 import BlogSidebar from "../BlogSidebar"
 import BlogPost from "../BlogPost"
 
